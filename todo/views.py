@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect,get_object_or_404
 from django.http import Http404
 from django.utils.timezone import make_aware
 from django.utils.dateparse import parse_datetime
@@ -54,3 +54,9 @@ def delete(request, task_id):
         raise Http404("Task does not exist")
     task.delete()
     return redirect(index)
+
+def complete_task(request, task_id):
+    task = get_object_or_404(Task, pk=task_id)
+    task.completed = True
+    task.save()
+    return redirect('index')
