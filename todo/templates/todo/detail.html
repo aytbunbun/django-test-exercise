@@ -9,6 +9,10 @@
 
   <body>
     <h1>{{ task.title }}</h1>
+    <div>
+      <h2>description</h2>
+      <p>{{ task.description }}</p>
+    </div>
     <ul>
       <li>Posted at: {{ task.posted_at }}</li>
       {% if task.due_at %}
