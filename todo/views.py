@@ -12,6 +12,8 @@ def index(request):
         task.save()
     if request.GET.get('order') == 'due':
         tasks = Task.objects.order_by('due_at')
+    if request.GET.get('order') == 'not_completed':
+        tasks = Task.objects.filter(completed=False)
     else:
         tasks = Task.objects.order_by('-posted_at')
     context = {
@@ -60,3 +62,4 @@ def complete_task(request, task_id):
     task.completed = True
     task.save()
     return redirect('index')
+
