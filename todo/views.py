@@ -8,7 +8,11 @@ from todo.models import Task
 # Create your views here.
 def index(request):
     if request.method == 'POST':
-        task = Task(title=request.POST['title'], due_at=make_aware(parse_datetime(request.POST['due_at'])))
+        task = Task(
+            title=request.POST['title'],
+            description=request.POST['description'],
+            due_at=make_aware(parse_datetime(request.POST['due_at']))
+        )
         task.save()
     if request.GET.get('order') == 'due':
         tasks = Task.objects.order_by('due_at')
@@ -40,6 +44,8 @@ def update(request, task_id):
         raise Http404("Task does not exist")
     if request.method == 'POST':
         task.title = request.POST['title']
+        task.description = request.POST['description']
+        task.completed = "completed" in request.POST
         task.due_at = make_aware(parse_datetime(request.POST['due_at']))
         task.save()
         return redirect(detail, task_id)

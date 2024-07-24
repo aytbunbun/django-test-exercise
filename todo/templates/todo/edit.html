@@ -21,12 +21,26 @@
                        value="{{ task.title }}">
             </div>
             <div>
+                <label for="descriptionInput">Description</label>
+                <br>
+                <textarea id="descriptionInput"
+                          name="description"
+                          placeholder="Input description">{{ task.description }}</textarea>
+            </div>
+            <div>
                 <label for="dueInput">Due at:</label>
                 <br>
                 <input id="dueInput"
                        name="due_at"
                        type="datetime-local"
                        value="{{ task.due_at | date:"Y-m-d H:i" }}">
+            </div>
+            <div>
+                <label for="completedInput">Completed</label>
+                <input id="completedInput"
+                       name="completed"
+                       type="checkbox"
+                       {% if task.completed %}checked{% endif %}>
             </div>
             <div>
                 <button type="submit">Submit</button>
