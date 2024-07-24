@@ -84,7 +84,7 @@ class TodoViewTestCase(TestCase):
         task2 = Task.objects.create(title="Task 2", due=timezone.now() + timezone.timedelta(days=2))
         task2.save()
         client = Client()
-        response = client. get('/?order=due')
+         response = self.client.get("/?order=due")
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.templates[0].name, 'todo/index.html')
         self.assertEqual(response.context['tasks'][0], task1)
